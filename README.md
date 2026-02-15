@@ -45,6 +45,31 @@ npm run tauri dev
 npm run tauri build
 ```
 
+## Maintenance
+
+```bash
+# Remove generated build/cache artifacts
+npm run clean
+```
+
+After running `npm run clean`, reinstall dependencies before development:
+
+```bash
+npm install
+```
+
+## Common Commands
+
+| Command | Purpose |
+| --- | --- |
+| `npm install` | Install frontend dependencies |
+| `npm run tauri dev` | Run the app in development mode |
+| `npm run tauri build` | Build a production app bundle |
+| `npm run test -- --run` | Run frontend tests once |
+| `npm run build` | Build frontend production assets |
+| `npm run audit` | Run npm + Rust dependency audits |
+| `npm run clean` | Remove generated build/cache artifacts |
+
 ## Quality Gates
 
 ```bash
