@@ -39,6 +39,25 @@ npm install
 npm run tauri dev
 ```
 
+## Lean Dev Mode (Low Disk)
+
+```bash
+npm run dev:lean
+```
+
+This still runs the normal Tauri development flow (`npm run tauri dev`) but uses
+ephemeral cache/build locations for:
+
+- Rust target output (`CARGO_TARGET_DIR`)
+- Vite dev cache (`VITE_CACHE_DIR`)
+
+When the process exits, temporary lean-mode artifacts are removed automatically.
+
+Tradeoff:
+
+- Lower persistent disk usage between runs
+- Slower startup/compile on each fresh lean run vs reusing `src-tauri/target`
+
 ## Build
 
 ```bash
@@ -48,11 +67,14 @@ npm run tauri build
 ## Maintenance
 
 ```bash
-# Remove generated build/cache artifacts
-npm run clean
+# Remove only heavy build artifacts (keeps dependencies)
+npm run clean:heavy
+
+# Remove all reproducible local caches/artifacts (includes node_modules)
+npm run clean:full
 ```
 
-After running `npm run clean`, reinstall dependencies before development:
+After running `npm run clean:full`, reinstall dependencies before development:
 
 ```bash
 npm install
@@ -64,11 +86,14 @@ npm install
 | --- | --- |
 | `npm install` | Install frontend dependencies |
 | `npm run tauri dev` | Run the app in development mode |
+| `npm run dev:lean` | Run development mode with ephemeral build caches |
 | `npm run tauri build` | Build a production app bundle |
 | `npm run test -- --run` | Run frontend tests once |
 | `npm run build` | Build frontend production assets |
 | `npm run audit` | Run npm + Rust dependency audits |
-| `npm run clean` | Remove generated build/cache artifacts |
+| `npm run clean:heavy` | Remove heavy build artifacts only |
+| `npm run clean:full` | Remove all reproducible local caches/artifacts |
+| `npm run clean` | Alias for `npm run clean:full` |
 
 ## Quality Gates
 
